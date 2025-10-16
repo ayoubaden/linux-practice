@@ -1,0 +1,38 @@
+# OverTheWire: Bandit Level 13 → 14
+
+##  Level Goal
+The password for the next level is not provided directly.  
+Instead, you are given a **private SSH key (`sshkey.private`)** in your home directory.  
+You must use this key to log in as the next user, `bandit14`.
+
+---
+
+##  Server Info
+- **Host:** bandit.labs.overthewire.org  
+- **Port:** 2220  
+- **Username:** bandit13  
+- **Password:** FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn
+
+---
+
+##  Steps
+
+```bash
+# 1. Log in as bandit13
+ssh bandit13@bandit.labs.overthewire.org -p 2220
+
+# 2. Locate the SSH key
+ls
+# Output: sshkey.private
+
+# 3. Copy the key to your local machine (run from your LOCAL terminal)
+scp -P 2220 bandit13@bandit.labs.overthewire.org:sshkey.private .
+
+# 4. Restrict key permissions
+chmod 600 sshkey.private
+
+# 5. Log in as bandit14 using the key
+ssh -i sshkey.private bandit14@bandit.labs.overthewire.org -p 2220
+
+# 6. Retrieve the password for the next level
+cat /etc/bandit_pass/bandit14
